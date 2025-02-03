@@ -12,6 +12,7 @@
 
         <!-- Styles / Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     </head>
     <body class="font-sans antialiased">
         <!-- Navigation Bar -->
@@ -42,19 +43,46 @@
             <div class="relative w-full max-w-md p-8 bg-white rounded-lg shadow-xl mx-4">
                 <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Create Account</h2>
 
-                <form class="space-y-6" action="/register-questions" method="GET">
+                <form method="POST" action="{{ route('register.store') }}" class="space-y-4">
+                    @csrf
                     <div>
                         <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
-                        <input type="email" id="email" name="email" required 
-                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-gray-500"/>
+                        <input type="email" 
+                               name="email" 
+                               id="email" 
+                               value="{{ old('email') }}"
+                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-gray-500"
+                               required>
+                        @error('email')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div>
                         <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                        <input type="password" id="password" name="password" required 
+                        <div class="mt-1  rounded-md shadow-sm relative">
+                            <input type="password" id="password" name="password" required 
                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-600"/>
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                <i class="fas fa-eye-slash toggle-password text-gray-400 hover:text-gray-600 cursor-pointer" data-target="password"></i>
+                                
+                            </div>
+                        </div>
+                        @error('password')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
-
+                    <div>
+                        <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                        <div class="mt-1 relative rounded-md shadow-sm">
+                            <input type="password" id="password_confirmation" name="password_confirmation" required 
+                                class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
+                            />
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                <i class="fas fa-eye-slash toggle-password text-gray-400 hover:text-gray-600 cursor-pointer" data-target="password_confirmation"></i>
+                            </div>
+                        </div>
+                    </div>
                     <button type="submit" 
                             class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                         Sign up
@@ -87,5 +115,23 @@
                 </p>
             </div>
         </div>
+        <script>
+        document.querySelectorAll('.toggle-password').forEach(icon => {
+            icon.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                const passwordInput = document.getElementById(targetId);
+                
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    this.classList.remove('fa-eye-slash');
+                    this.classList.add('fa-eye');
+                } else {
+                    passwordInput.type = 'password';
+                    this.classList.remove('fa-eye');
+                    this.classList.add('fa-eye-slash');
+                }
+            });
+        });
+        </script>
     </body>
 </html>

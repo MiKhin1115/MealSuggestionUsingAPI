@@ -27,7 +27,7 @@
             <div class="bg-white p-8 rounded-lg shadow-xl w-96 space-y-6">
                 <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Welcome Back</h2>
                 
-                <form class="space-y-4">
+                <form class="space-y-4" method="GET" action="{{ route('dashboard') }}">
                     <div>
                         <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                         <input type="email" id="email" name="email" required 
@@ -36,8 +36,28 @@
 
                     <div>
                         <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                        <input type="password" id="password" name="password" required 
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
+                        <div class="mt-1  rounded-md shadow-sm relative">
+                            <input type="password" id="password" name="password" required 
+                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-600"/>
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                <i class="fas fa-eye-slash toggle-password text-gray-400 hover:text-gray-600 cursor-pointer" data-target="password"></i>
+                                
+                            </div>
+                        </div>
+                        @error('password')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div>
+                        <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                        <div class="mt-1 relative rounded-md shadow-sm">
+                            <input type="password" id="password_confirmation" name="password_confirmation" required 
+                                class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
+                            />
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                <i class="fas fa-eye-slash toggle-password text-gray-400 hover:text-gray-600 cursor-pointer" data-target="password_confirmation"></i>
+                            </div>
+                        </div>
                     </div>
 
                     <button type="submit" 
@@ -67,5 +87,23 @@
                 </form>
             </div>
         </div>
+        <script>
+        document.querySelectorAll('.toggle-password').forEach(icon => {
+            icon.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                const passwordInput = document.getElementById(targetId);
+                
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    this.classList.remove('fa-eye-slash');
+                    this.classList.add('fa-eye');
+                } else {
+                    passwordInput.type = 'password';
+                    this.classList.remove('fa-eye');
+                    this.classList.add('fa-eye-slash');
+                }
+            });
+        });
+        </script>
     </body>
 </html> 

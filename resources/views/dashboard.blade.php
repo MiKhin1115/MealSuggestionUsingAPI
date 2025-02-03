@@ -28,8 +28,8 @@
                         <!-- User Profile -->
                         <div class="flex items-center space-x-3">
                             <div class="flex flex-col items-end">
-                                <span class="text-sm font-medium text-gray-900">Hlaing Htet Htet Htun</span>
-                                <span class="text-xs text-gray-500">19 years old</span>
+                                <span class="text-sm font-medium text-gray-900">{{ $user->name }}</span>
+                                <span class="text-xs text-gray-500">{{ $user->age }} years old</span>
                             </div>
                             <div class="h-10 w-10 rounded-full overflow-hidden">
                                 <img src="https://i.pinimg.com/736x/d6/78/3c/d6783c10250b38ba628db8006f69c204.jpg" 
@@ -51,14 +51,16 @@
             <h1 class="text-3xl font-bold text-gray-800 mb-8">Welcome to Your Dashboard</h1>
             
             <!-- Feature Cards Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Meal Suggestions Card -->
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <div class="h-48 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c" 
-                             alt="Meal Suggestions" 
-                             class="w-full h-full object-cover transform hover:scale-110 transition duration-500">
-                    </div>
+                    <a href="/meal-suggestions" class="block">
+                        <div class="h-48 overflow-hidden cursor-pointer">
+                            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c" 
+                                 alt="Meal Suggestions" 
+                                 class="w-full h-full object-cover transform hover:scale-110 transition duration-500">
+                        </div>
+                    </a>
                     <div class="p-4">
                         <h3 class="text-xl font-semibold text-gray-800 mb-2">Meal Suggestions</h3>
                         <p class="text-gray-600 mb-4">Discover personalized recipe recommendations based on your preferences.</p>
@@ -74,11 +76,13 @@
 
                 <!-- Daily Meal Card -->
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <div class="h-48 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1547592180-85f173990554" 
-                             alt="Daily Meal" 
-                             class="w-full h-full object-cover transform hover:scale-110 transition duration-500">
-                    </div>
+                    <a href="/daily-meal" class="block">
+                        <div class="h-48 overflow-hidden cursor-pointer">
+                            <img src="https://images.unsplash.com/photo-1547592180-85f173990554" 
+                                 alt="Daily Meal" 
+                                 class="w-full h-full object-cover transform hover:scale-110 transition duration-500">
+                        </div>
+                    </a>
                     <div class="p-4">
                         <h3 class="text-xl font-semibold text-gray-800 mb-2">Daily Meal</h3>
                         <p class="text-gray-600 mb-4">Plan and track your daily meals with our easy-to-use planner.</p>
@@ -94,11 +98,13 @@
 
                 <!-- Weekly Plan Card -->
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <div class="h-48 overflow-hidden">
-                        <img src="https://i.pinimg.com/736x/1e/16/f9/1e16f9b2f4e200da1f3def37f8d8633a.jpg" 
-                             alt="Weekly Plan" 
-                             class="w-full h-full object-cover transform hover:scale-110 transition duration-500">
-                    </div>
+                    <a href="/weekly-plan" class="block">
+                        <div class="h-48 overflow-hidden cursor-pointer">
+                            <img src="https://i.pinimg.com/736x/1e/16/f9/1e16f9b2f4e200da1f3def37f8d8633a.jpg" 
+                                 alt="Weekly Plan" 
+                                 class="w-full h-full object-cover transform hover:scale-110 transition duration-500">
+                        </div>
+                    </a>
                     <div class="p-4">
                         <h3 class="text-xl font-semibold text-gray-800 mb-2">Weekly Plan</h3>
                         <p class="text-gray-600 mb-4">Organize your meals for the entire week in advance.</p>
@@ -114,11 +120,13 @@
 
                 <!-- Health Profile Card -->
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <div class="h-48 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352" 
-                             alt="Health Profile" 
-                             class="w-full h-full object-cover transform hover:scale-110 transition duration-500">
-                    </div>
+                    <a href="/health-profile" class="block">
+                        <div class="h-48 overflow-hidden cursor-pointer">
+                            <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352" 
+                                 alt="Health Profile" 
+                                 class="w-full h-full object-cover transform hover:scale-110 transition duration-500">
+                        </div>
+                    </a>
                     <div class="p-4">
                         <h3 class="text-xl font-semibold text-gray-800 mb-2">Health Profile</h3>
                         <p class="text-gray-600 mb-4">Manage your dietary preferences and health goals.</p>
