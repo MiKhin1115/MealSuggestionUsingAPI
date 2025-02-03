@@ -42,7 +42,7 @@
             <div class="bg-white rounded-lg shadow-lg p-8">
                 <h2 class="text-2xl font-bold text-gray-800 mb-6">Tell us about yourself</h2>
                 
-                <form action="/register-questions-2" method="POST" class="space-y-6">
+                <form action="/register-questions-2" method="GET" class="space-y-6">
                     @csrf
                     
                     <!-- Name -->

@@ -42,7 +42,7 @@
             <div class="bg-white rounded-lg shadow-lg p-8">
                 <h2 class="text-2xl font-bold text-gray-800 mb-6">Final Health & Preference Details</h2>
                 
-                <form action="/register-final" method="POST" class="space-y-6">
+                <form action="/registration-success" method="GET" class="space-y-6">
                     @csrf
 
                     <!-- Allergies Section -->

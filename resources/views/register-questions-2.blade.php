@@ -42,7 +42,7 @@
             <div class="bg-white rounded-lg shadow-lg p-8">
                 <h2 class="text-2xl font-bold text-gray-800 mb-6">Your Food Preferences</h2>
                 
-                <form action="/register-questions-3" method="POST" class="space-y-6">
+                <form action="/register-questions-3" method="GET" class="space-y-6">
                     @csrf
 
                     <!-- Favorite Meals -->
