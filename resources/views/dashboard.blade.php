@@ -38,7 +38,10 @@
                             </div>
                             <form method="POST" action="{{ route('logout') }}" class="inline">
                                 @csrf
-                                <button type="submit" class="text-gray-600 hover:text-gray-900">Logout</button>
+                                <button type="submit" 
+                                        class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors duration-200">
+                                    Logout
+                                </button>
                             </form>
                         </div>
                     </div>
@@ -62,7 +65,7 @@
                         </div>
                     </a>
                     <div class="p-4">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Meal Suggestions</h3>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Recipe Suggestions</h3>
                         <p class="text-gray-600 mb-4">Discover personalized recipe recommendations based on your preferences.</p>
                         <a href="/meal-suggestions" 
                            class="inline-flex items-center text-green-600 hover:text-green-700">
@@ -76,7 +79,7 @@
 
                 <!-- Daily Meal Card -->
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <a href="/daily-meal" class="block">
+                    <a href="/daily-meal-1" class="block">
                         <div class="h-48 overflow-hidden cursor-pointer">
                             <img src="https://images.unsplash.com/photo-1547592180-85f173990554" 
                                  alt="Daily Meal" 
@@ -86,7 +89,7 @@
                     <div class="p-4">
                         <h3 class="text-xl font-semibold text-gray-800 mb-2">Daily Meal</h3>
                         <p class="text-gray-600 mb-4">Plan and track your daily meals with our easy-to-use planner.</p>
-                        <a href="/daily-meal" 
+                        <a href="/daily-meal-1" 
                            class="inline-flex items-center text-green-600 hover:text-green-700">
                             View planner
                             <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

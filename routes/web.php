@@ -4,6 +4,11 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RecipeSuggestionController;
+use App\Http\Controllers\DailyMealController;
+use App\Http\Controllers\DailyMeal2Controller;
+use App\Http\Controllers\UserFavoriteController;
+use App\Http\Controllers\RecipeAdminController;
 
 Route::get('/', function () {
     return view('home');
@@ -89,7 +94,3 @@ Route::post('/login', function (Request $request) {
     // Redirect to the questions page
     return redirect()->route('dashboard');
 })->name('login');
-
-Route::post('/register-questions', function () {
-    return view('register-questions');
-})->name('register-questions');
