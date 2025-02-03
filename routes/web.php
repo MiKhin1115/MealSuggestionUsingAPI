@@ -4,6 +4,11 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RecipeSuggestionController;
+use App\Http\Controllers\DailyMealController;
+use App\Http\Controllers\DailyMeal2Controller;
+use App\Http\Controllers\UserFavoriteController;
+use App\Http\Controllers\RecipeAdminController;
 
 Route::get('/', function () {
     return view('home');
@@ -89,3 +94,17 @@ Route::post('/login', function (Request $request) {
     // Redirect to the questions page
     return redirect()->route('dashboard');
 })->name('login');
+
+Route::get('/meal-suggestions', [RecipeSuggestionController::class, 'index'])
+    ->name('recipe.suggestions');
+
+Route::get('/daily-meal-1', [DailyMealController::class, 'index'])
+    ->name('daily.meal.1');
+
+Route::get('/daily-meal-2', [DailyMeal2Controller::class, 'index'])
+    ->name('daily.meal.2');
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/recipes/create', [RecipeAdminController::class, 'create'])->name('admin.recipes.create');
+    Route::post('/admin/recipes', [RecipeAdminController::class, 'store'])->name('admin.recipes.store');
+});
