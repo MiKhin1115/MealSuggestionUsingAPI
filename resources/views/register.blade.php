@@ -24,7 +24,7 @@
                     </div>
                     <div class="flex items-center space-x-4">
                     <a href="/about" class="text-gray-600 hover:text-gray-900">About Us</a>
-                        <a href="/register" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">Sign Up</a>
+                        <a href="/login" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">Sign In</a>
                         
                     </div>
                 </div>

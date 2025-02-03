@@ -67,3 +67,25 @@ Route::post('/register', function (Request $request) {
     // Redirect to the questions page
     return redirect()->route('register.questions');
 })->name('register.store');
+
+Route::post('/login', function (Request $request) {
+    // Validate the form data
+    $validated = $request->validate([
+        //'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users',
+        'password' => 'required|confirmed',
+    ], [
+        'password.confirmed' => 'Password and confirm password are not identical.',
+        'email.unique' => 'This email is already registered.',
+    ]);
+
+    // Store the form data in the session for later use
+    session(['registration_data' => [
+        //'name' => $validated['name'],
+        'email' => $validated['email'],
+        'password' => $validated['password'],
+    ]]);
+
+    // Redirect to the questions page
+    return redirect()->route('dashboard');
+})->name('login');

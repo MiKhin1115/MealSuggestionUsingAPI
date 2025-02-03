@@ -5,6 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Login - Meal Suggestion</title>
         @vite('resources/css/app.css')
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+   
     </head>
     <body class="antialiased">
         <!-- Navigation Bar -->
@@ -27,7 +29,8 @@
             <div class="bg-white p-8 rounded-lg shadow-xl w-96 space-y-6">
                 <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Welcome Back</h2>
                 
-                <form class="space-y-4" method="GET" action="{{ route('dashboard') }}">
+                <form class="space-y-4" method="POST" action="{{ route('login') }}">
+                    @csrf
                     <div>
                         <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                         <input type="email" id="email" name="email" required 
