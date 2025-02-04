@@ -89,3 +89,7 @@ Route::post('/login', function (Request $request) {
     // Redirect to the questions page
     return redirect()->route('dashboard');
 })->name('login');
+
+Route::post('/register-questions', function () {
+    return view('register-questions');
+})->name('register-questions');
