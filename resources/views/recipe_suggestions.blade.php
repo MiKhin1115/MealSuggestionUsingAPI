@@ -10,55 +10,10 @@
     </head>
     <body class="antialiased bg-gray-50">
         <!-- Top Navigation Bar -->
-        <nav class="bg-white shadow-lg">
-            <div class="max-w-7xl mx-auto px-4">
-                <div class="flex justify-between h-16">
-                    <!-- Left side - Logo -->
-                    <div class="flex-shrink-0 flex items-center">
-                        <a href="/dashboard" class="text-2xl font-bold text-green-600">Meal_Suggestion</a>
-                    </div>
-
-                    <!-- Right side - Icons and Profile -->
-                    <div class="flex items-center space-x-6">
-                        <!-- Heart Icon -->
-                        <button class="text-gray-500 hover:text-gray-700">
-                            <i class="fas fa-heart text-xl"></i>
-                        </button>
-
-                        <!-- Notification Bell -->
-                        <div class="relative">
-                            <button class="text-gray-500 hover:text-gray-700">
-                                <i class="fas fa-bell text-xl"></i>
-                                <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500"></span>
-                            </button>
-                        </div>
-
-                        <!-- User Profile -->
-                        <div class="flex items-center space-x-3">
-                            <div class="flex flex-col items-end">
-                                <span class="text-sm font-medium text-gray-900">{{ $user->name }}</span>
-                                <span class="text-xs text-gray-500">{{ $user->age }} years old</span>
-                            </div>
-                            <div class="h-10 w-10 rounded-full overflow-hidden">
-                                <img src="https://i.pinimg.com/736x/d6/78/3c/d6783c10250b38ba628db8006f69c204.jpg" 
-                                     alt="User avatar" 
-                                     class="h-full w-full object-cover">
-                            </div>
-                            <form method="POST" action="{{ route('logout') }}" class="inline">
-                                @csrf
-                                <button type="submit" 
-                                        class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors duration-200">
-                                    Logout
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
+        <x-header />
 
         <!-- Main Content -->
-        <div class="container mx-auto px-4 py-8">
+        <div class="container mx-auto px-16 py-8">
             <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Recipe Suggestions</h1>
             
             <!-- Search and Filter Section -->
@@ -484,5 +439,6 @@
                 }
             });
         </script>
+        <x-footer />
     </body>
 </html> 

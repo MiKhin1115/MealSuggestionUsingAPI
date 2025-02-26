@@ -25,7 +25,7 @@
         </nav>
 
         <!-- Main Content -->
-        <div class="min-h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80');">
+        <div class="min-h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('{{ asset('images/dashboard/daily_meal.jpeg') }}');">
             <div class="bg-white p-8 rounded-lg shadow-xl w-96 space-y-6">
                 <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Welcome Back</h2>
                 
@@ -51,17 +51,7 @@
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
-                    <div>
-                        <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirm Password</label>
-                        <div class="mt-1 relative rounded-md shadow-sm">
-                            <input type="password" id="password_confirmation" name="password_confirmation" required 
-                                class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
-                            />
-                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
-                                <i class="fas fa-eye-slash toggle-password text-gray-400 hover:text-gray-600 cursor-pointer" data-target="password_confirmation"></i>
-                            </div>
-                        </div>
-                    </div>
+                    
 
                     <button type="submit" 
                         class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
