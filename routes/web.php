@@ -634,3 +634,231 @@ Route::post('/save-recipe', [SavedRecipeController::class, 'store'])
 Route::get('/personalized-recommendations', [PersonalizedRecommendationController::class, 'index'])
     //->middleware('auth')
     ->name('personalized.recommendations');
+    
+    // Personalized Recommendation
+    Route::get('/personalized_recommendation', [PersonalizedRecommendationController::class, 'index'])
+        ->name('personalized.recommendation');
+    
+    // User Favorites Routes
+    Route::get('/favorites', [UserFavoriteController::class, 'index'])
+        ->middleware(['auth'])
+        ->name('favorites');
+    
+    Route::post('/favorites/toggle', [UserFavoriteController::class, 'toggle'])
+        ->middleware(['auth'])
+        ->name('favorites.toggle');
+    
+    // Calorie Calculator Routes
+    Route::post('/api/calories/daily-needs', [CalorieCalculatorController::class, 'calculateDailyNeeds'])
+        ->name('api.calories.daily-needs');
+    
+    Route::post('/api/calories/recipe-calories', [CalorieCalculatorController::class, 'calculateRecipeCalories'])
+        ->name('api.calories.recipe-calories');
+    
+    Route::post('/api/calories/check-exceedance', [CalorieCalculatorController::class, 'checkCalorieExceedance'])
+        ->name('api.calories.check-exceedance');
+    
+    // New endpoint that matches the URL in our weight-loss-warnings.js
+    Route::post('/api/check-calorie-exceedance', [CalorieCalculatorController::class, 'checkCalorieExceedance'])
+        ->name('api.check-calorie-exceedance');
+    
+    Route::post('/api/nutrition/data', [CalorieCalculatorController::class, 'getNutritionData'])
+        ->name('api.nutrition.data');
+    
+    // Calorie Calculator View
+    Route::get('/calorie-calculator', [CalorieCalculatorController::class, 'index'])
+        ->name('calorie.calculator');
+    
+    // Health Profile Routes
+    Route::get('/health-profile', function () {
+        $user = Auth::user();
+        $questions1 = $user->questions1()->first();
+        $questions2 = $user->questions2()->first();
+        $questions3 = $user->questions3()->first();
+        
+        return view('health_profile', [
+            'user' => $user,
+            'questions1' => $questions1,
+            'questions2' => $questions2,
+            'questions3' => $questions3
+        ]);
+    })->name('health.profile');
+    
+    Route::post('/health-profile/update', function (Request $request) {
+        try {
+            // Only validate fields that are actually in the request
+            $validationRules = [];
+            $fields = [
+                // Re-enable birthday validation now that the column exists
+                'birthday' => 'nullable|date',
+                // Re-enable gender validation now that the column exists
+                'gender' => 'nullable|string|in:male,female,other',
+                'height' => 'nullable|numeric|min:70|max:250',
+                'weight' => 'nullable|numeric|min:20|max:300',
+                'diet_type' => 'nullable|string|in:omnivore,vegetarian,vegan',
+                'health_goal' => 'nullable|string|in:weight_loss,weight_gain,maintain_weight',
+                'no_allergies' => 'nullable|string',
+                'allergies' => 'nullable|string|max:500',
+                'disliked_ingredients' => 'nullable|string|max:500',
+                'medical_conditions' => 'nullable|string|max:500',
+                'cooking_skill' => 'nullable|string|in:beginner,intermediate,advanced,expert',
+                'cooking_time' => 'nullable|numeric|min:5|max:180',
+                'meal_budget' => 'nullable|string|in:budget,moderate,expensive',
+                'favorite_snacks' => 'nullable|string|max:255',
+            ];
+            
+            // Only validate fields that are actually present in the request
+            foreach ($fields as $field => $rule) {
+                if ($request->has($field)) {
+                    $validationRules[$field] = $rule;
+                }
+            }
+            
+            $validatedData = $request->validate($validationRules);
+            
+            // Convert checkbox to boolean (1 or 0) instead of string
+            $validatedData['no_allergies'] = isset($validatedData['no_allergies']) ? 1 : 0;
+            
+            // Begin optimized transaction
+            DB::beginTransaction();
+            
+            try {
+                $user = Auth::user();
+                $userId = $user->id;
+                
+                // Update user info (only if fields are provided)
+                $userUpdated = false;
+                
+                // Re-enable birthday update now that the column exists
+                if (isset($validatedData['birthday'])) {
+                    $user->birthday = $validatedData['birthday'];
+                    $userUpdated = true;
+                }
+                
+                // Re-enable gender update now that the column exists
+                if (isset($validatedData['gender'])) {
+                    $user->gender = $validatedData['gender'];
+                    $userUpdated = true;
+                }
+                if ($userUpdated) {
+                    $user->save();
+                }
+                
+                // Bulk update Questions1
+                $q1Data = array_intersect_key($validatedData, array_flip(['height', 'weight', 'diet_type']));
+                if (!empty($q1Data)) {
+                    // Get or create Questions1 using firstOrNew which is more efficient
+                    $questions1 = \App\Models\Questions1::firstOrNew(['user_id' => $userId]);
+                    foreach ($q1Data as $key => $value) {
+                        $questions1->$key = $value;
+                    }
+                    $questions1->save();
+                }
+                
+                // Bulk update Questions2
+                if (isset($validatedData['disliked_ingredients'])) {
+                    // Get or create Questions2
+                    $questions2 = \App\Models\Questions2::firstOrNew(['user_id' => $userId]);
+                    $questions2->disliked_ingredients = $validatedData['disliked_ingredients'];
+                    $questions2->save();
+                }
+                
+                // Bulk update Questions3
+                $q3Keys = ['health_goal', 'allergies', 'medical_conditions', 'cooking_skill', 
+                          'cooking_time', 'meal_budget', 'favorite_snacks', 'no_allergies'];
+                $q3Data = array_intersect_key($validatedData, array_flip($q3Keys));
+                
+                if (!empty($q3Data)) {
+                    // Get or create Questions3
+                    $questions3 = \App\Models\Questions3::firstOrNew(['user_id' => $userId]);
+                    foreach ($q3Data as $key => $value) {
+                        $questions3->$key = $value;
+                    }
+                    $questions3->save();
+                }
+                
+                DB::commit();
+                
+                return redirect()->route('health.profile')
+                    ->with('success', 'Your health profile has been updated successfully!');
+                
+            } catch (\Exception $e) {
+                DB::rollBack();
+                \Log::error('Health profile update failed', [
+                    'user_id' => Auth::id(),
+                    'error' => $e->getMessage()
+                ]);
+                
+                $errorDetail = config('app.debug') ? $e->getMessage() : 'Database error';
+                
+                return redirect()->route('health.profile')
+                    ->with('error', 'An error occurred while saving your information. Please try again.')
+                    ->with('error_details', $errorDetail);
+            }
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()->route('health.profile')
+                ->withErrors($e->validator)
+                ->withInput();
+        } catch (\Exception $e) {
+            \Log::error('Health profile form error', [
+                'user_id' => Auth::id() ?? 'guest',
+                'error' => $e->getMessage()
+            ]);
+            
+            return redirect()->route('health.profile')
+                ->with('error', 'An unexpected error occurred. Please try again later.')
+                ->with('error_details', config('app.debug') ? $e->getMessage() : null);
+        }
+    })->middleware(['auth'])->name('health.profile.update');
+});
+
+// Recipe API endpoints
+Route::get('/api/recipes/search', [RecipeSuggestionController::class, 'search'])
+    ->name('api.recipes.search');
+Route::get('/api/recipes/random', [RecipeSuggestionController::class, 'getRandomRecipes'])
+    ->name('api.recipes.random');
+Route::get('/api/recipes/{id}', [RecipeSuggestionController::class, 'getRecipeDetails'])
+    ->name('api.recipes.details');
+Route::post('/api/favorites/toggle', [UserFavoriteController::class, 'toggle'])
+    ->name('api.favorites.toggle')
+    ->middleware('auth');
+Route::post('/api/favorites/remove', [UserFavoriteController::class, 'remove'])
+    ->name('api.favorites.remove')
+    ->middleware('auth');
+Route::post('/api/meals/add', [DailyMealController::class, 'addMeal'])
+    ->name('api.meals.add')
+    ->middleware('auth');
+Route::post('/api/get-recipe/add', [GetRecipeController::class, 'getRecipe'])
+    ->name('api.get.recipe.add')
+    ->middleware('auth');
+
+// Get Recipes route
+Route::get('/get-recipes', [GetRecipeController::class, 'index'])
+    ->name('get.recipes')
+    ->middleware('auth');
+
+// Dashboard routes
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->name('dashboard')
+    ->middleware('auth');
+
+// API Routes
+Route::get('/api/recipes/search', [RecipeSuggestionController::class, 'search']);
+Route::get('/api/recipes/random', [RecipeSuggestionController::class, 'getRandomRecipes']);
+Route::get('/api/recipes/{id}', [RecipeSuggestionController::class, 'getRecipeDetails']);
+Route::post('/api/recipes/get', [GetRecipeController::class, 'getRecipe']);
+Route::post('/api/recipes/remove', [GetRecipeController::class, 'remove']);
+Route::post('/api/favorites/remove', [UserFavoriteController::class, 'remove']);
+
+// Notifications route
+Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications');
+Route::get('/notification-detail', [NotificationController::class, 'detail'])->name('notification.detail');
+
+// Articles Routes
+Route::get('/articles', function () {
+    return view('articles.index');
+})->name('articles.index');
+
+Route::get('/articles/{slug}', function ($slug) {
+    return view('articles.show', ['slug' => $slug]);
+})->name('articles.show');
