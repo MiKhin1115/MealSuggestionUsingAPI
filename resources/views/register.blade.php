@@ -20,7 +20,7 @@
             <div class="max-w-7xl mx-auto px-4">
                 <div class="flex justify-between h-16">
                     <div class="flex-shrink-0 flex items-center">
-                        <a href="/" class="text-2xl font-bold text-green-600">Meal_Suggestion</a>
+                        <a href="/" class="text-2xl font-bold text-green-900">Meal_Suggestion</a>
                     </div>
                     <div class="flex items-center space-x-4">
                     <a href="/about" class="text-gray-600 hover:text-gray-900">About Us</a>
@@ -32,8 +32,7 @@
         </nav>
         <div class="min-h-screen flex items-center justify-center relative">
             <!-- Background Image -->
-            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836" 
-                 alt="Food background" 
+            <img src="{{ asset('images/dashboard/recipe_suggestion.jpeg') }}"
                  class="absolute inset-0 w-full h-full object-cover"/>
             
             <!-- Overlay -->

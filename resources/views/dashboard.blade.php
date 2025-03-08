@@ -8,46 +8,11 @@
     </head>
     <body class="antialiased bg-gray-50">
         <!-- Top Navigation Bar -->
-        <nav class="bg-white shadow-lg">
-            <div class="max-w-7xl mx-auto px-4">
-                <div class="flex justify-between h-16">
-                    <div class="flex-shrink-0 flex items-center">
-                        <a href="/dashboard" class="text-2xl font-bold text-green-600">Meal_Suggestion</a>
-                    </div>
-                    <div class="flex items-center space-x-6">
-                        <!-- Notification Bell -->
-                        <div class="relative">
-                            <button class="text-gray-500 hover:text-gray-700">
-                                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
-                                </svg>
-                                <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500"></span>
-                            </button>
-                        </div>
-
-                        <!-- User Profile -->
-                        <div class="flex items-center space-x-3">
-                            <div class="flex flex-col items-end">
-                                <span class="text-sm font-medium text-gray-900">{{ $user->name }}</span>
-                                <span class="text-xs text-gray-500">{{ $user->age }} years old</span>
-                            </div>
-                            <div class="h-10 w-10 rounded-full overflow-hidden">
-                                <img src="https://i.pinimg.com/736x/d6/78/3c/d6783c10250b38ba628db8006f69c204.jpg" 
-                                     alt="User avatar" 
-                                     class="h-full w-full object-cover">
-                            </div>
-                            <form method="POST" action="{{ route('logout') }}" class="inline">
-                                @csrf
-                                <button type="submit" class="text-gray-600 hover:text-gray-900">Logout</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
-
+        
+        <x-header />
+        
         <!-- Main Content -->
-        <div class="container mx-auto px-4 py-8">
+        <div class="container mx-auto px-16 py-8">
             <h1 class="text-3xl font-bold text-gray-800 mb-8">Welcome to Your Dashboard</h1>
             
             <!-- Feature Cards Grid -->
@@ -56,13 +21,13 @@
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden">
                     <a href="/meal-suggestions" class="block">
                         <div class="h-48 overflow-hidden cursor-pointer">
-                            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c" 
+                            <img src="{{ asset('images/dashboard/recipe_suggestion.jpeg') }}"
                                  alt="Meal Suggestions" 
                                  class="w-full h-full object-cover transform hover:scale-110 transition duration-500">
                         </div>
                     </a>
                     <div class="p-4">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Meal Suggestions</h3>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Recipe Suggestions</h3>
                         <p class="text-gray-600 mb-4">Discover personalized recipe recommendations based on your preferences.</p>
                         <a href="/meal-suggestions" 
                            class="inline-flex items-center text-green-600 hover:text-green-700">
@@ -76,9 +41,9 @@
 
                 <!-- Daily Meal Card -->
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <a href="/daily-meal" class="block">
+                    <a href="/daily-meal-1" class="block">
                         <div class="h-48 overflow-hidden cursor-pointer">
-                            <img src="https://images.unsplash.com/photo-1547592180-85f173990554" 
+                            <img src="{{ asset('images/dashboard/daily_meal.jpeg') }}"
                                  alt="Daily Meal" 
                                  class="w-full h-full object-cover transform hover:scale-110 transition duration-500">
                         </div>
@@ -86,7 +51,7 @@
                     <div class="p-4">
                         <h3 class="text-xl font-semibold text-gray-800 mb-2">Daily Meal</h3>
                         <p class="text-gray-600 mb-4">Plan and track your daily meals with our easy-to-use planner.</p>
-                        <a href="/daily-meal" 
+                        <a href="/daily-meal-1" 
                            class="inline-flex items-center text-green-600 hover:text-green-700">
                             View planner
                             <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -98,17 +63,17 @@
 
                 <!-- Weekly Plan Card -->
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <a href="/weekly-plan" class="block">
+                    <a href="/personalized-recommendations" class="block">
                         <div class="h-48 overflow-hidden cursor-pointer">
-                            <img src="https://i.pinimg.com/736x/1e/16/f9/1e16f9b2f4e200da1f3def37f8d8633a.jpg" 
+                            <img src="{{ asset('images/dashboard/personal_recommedation.jpeg') }}"
                                  alt="Weekly Plan" 
                                  class="w-full h-full object-cover transform hover:scale-110 transition duration-500">
                         </div>
                     </a>
                     <div class="p-4">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Weekly Plan</h3>
-                        <p class="text-gray-600 mb-4">Organize your meals for the entire week in advance.</p>
-                        <a href="/weekly-plan" 
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Personalized Recommendations</h3>
+                        <p class="text-gray-600 mb-4">Organize your meals based on at least 3 of your favorite recipes.</p>
+                        <a href="/personalized-recommendations" 
                            class="inline-flex items-center text-green-600 hover:text-green-700">
                             Plan week
                             <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -122,7 +87,7 @@
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden">
                     <a href="/health-profile" class="block">
                         <div class="h-48 overflow-hidden cursor-pointer">
-                            <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352" 
+                            <img src="{{ asset('images/dashboard/health_profile.jpeg') }}"
                                  alt="Health Profile" 
                                  class="w-full h-full object-cover transform hover:scale-110 transition duration-500">
                         </div>
@@ -141,5 +106,6 @@
                 </div>
             </div>
         </div>
+        <x-footer />
     </body>
 </html> 
