@@ -13,6 +13,13 @@
         
         <!-- Main Content -->
         <div class="container mx-auto px-16 py-8">
+            <!-- Success Message -->
+            @if(session('success'))
+                <div class="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <h1 class="text-3xl font-bold text-gray-800 mb-8">Welcome to Your Dashboard</h1>
             
             <!-- Feature Cards Grid -->
@@ -63,7 +70,7 @@
 
                 <!-- Weekly Plan Card -->
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <a href="/personalized-recommendations" class="block">
+                    <a href="/personalized_recommendation" class="block">
                         <div class="h-48 overflow-hidden cursor-pointer">
                             <img src="{{ asset('images/dashboard/personal_recommedation.jpeg') }}"
                                  alt="Weekly Plan" 
@@ -73,7 +80,7 @@
                     <div class="p-4">
                         <h3 class="text-xl font-semibold text-gray-800 mb-2">Personalized Recommendations</h3>
                         <p class="text-gray-600 mb-4">Organize your meals based on at least 3 of your favorite recipes.</p>
-                        <a href="/personalized-recommendations" 
+                        <a href="/personalized_recommendation" 
                            class="inline-flex items-center text-green-600 hover:text-green-700">
                             Plan week
                             <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

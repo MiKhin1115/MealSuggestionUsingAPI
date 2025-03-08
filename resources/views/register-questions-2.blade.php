@@ -3,10 +3,12 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Food Preferences - Food App</title>
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <script src="{{ asset('js/form-validation.js') }}"></script>
     </head>
     <body class="font-sans antialiased bg-gray-50">
         <!-- Navigation Bar (Same as previous page) -->
@@ -42,7 +44,7 @@
             <div class="bg-white rounded-lg shadow-lg p-8">
                 <h2 class="text-2xl font-bold text-gray-800 mb-6">Your Food Preferences</h2>
                 
-                <form action="/register-questions-3" method="GET" class="space-y-6">
+                <form action="{{ route('register.questions2.store') }}" method="POST" class="space-y-6">
                     @csrf
 
                     <!-- Favorite Meals -->

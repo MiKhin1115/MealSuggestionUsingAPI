@@ -14,6 +14,13 @@ return [
     |
     */
 
+    'mailgun' => [
+        'domain' => env('MAILGUN_DOMAIN'),
+        'secret' => env('MAILGUN_SECRET'),
+        'endpoint' => env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
+        'scheme' => 'https',
+    ],
+
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
     ],
@@ -33,6 +40,16 @@ return [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
+    ],
+
+    'spoonacular' => [
+        'key' => env('SPOONACULAR_API_KEY'),
+        'base_url' => 'https://api.spoonacular.com',
+        'cache_duration' => env('SPOONACULAR_CACHE_DURATION', 30), // Cache duration in minutes
+    ],
+
+    'nutrition_api' => [
+        'key' => env('NUTRITION_API_KEY', 'BfLp2t0m7rPYofuCdFz06g==kc9oTw6yb2Ay8Tkk'),
     ],
 
 ];

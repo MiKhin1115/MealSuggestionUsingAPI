@@ -1,17 +1,18 @@
 <!-- Header -->
 <div class="header-wrapper">
-<header class="bg-white shadow-lg fixed w-full z-50">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<header class="bg-white shadow-lg fixed w-full z-50 top-0 left-0">
     <div class="max-w-7xl mx-auto px-4">
         <div class="flex justify-between h-16">
             <!-- Left Side - Logo and Brand -->
             <div class="flex items-center">
                 @auth
-                    <a href="/dashboard" class="text-2xl font-bold text-green-600">Meal_Suggestion</a>
+                    <a href="/dashboard" class="text-2xl font-bold text-green-600 italic font-serif">Meal_Suggestion</a>
                 @else
                     <button id="menu-toggle" class="text-gray-600 hover:text-gray-900 mr-4">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
-                    <a href="/" class="text-2xl font-bold text-green-600">Meal_Suggestion</a>
+                    <a href="/" class="text-2xl font-bold text-green-600 italic font-serif">Meal_Suggestion</a>
                 @endauth
             </div>
 
@@ -20,24 +21,61 @@
                 @auth
                     <!-- Dashboard Navigation -->
                     <div class="hidden md:flex items-center space-x-6">
-                        <a href="/meal-suggestions" class="text-gray-600 hover:text-gray-900">Recipe Suggestions</a>
-                        <a href="/daily-meal-1" class="text-gray-600 hover:text-gray-900">Daily Meal</a>
-                        <a href="/personalized-recommendations" class="text-gray-600 hover:text-gray-900">Recommendations</a>
-                        <a href="/health-profile" class="text-gray-600 hover:text-gray-900">Health Profile</a>
+                        <!-- Removed About Us link from here -->
+                    </div>
+                    
+                    <!-- Saved Recipes - Heart icon -->
+                    <a href="{{ route('favorites') }}" class="text-gray-700 hover:text-red-500 transition-colors duration-200 mr-3" title="Saved Recipes">
+                        <i class="fas fa-heart text-xl"></i>
+                    </a>
+                    
+                    <!-- Get Recipes - Utensils icon -->
+                    <a href="{{ route('get.recipes') }}" class="text-gray-700 hover:text-green-500 transition-colors duration-200 mr-3 relative" title="My Recipe Collection">
+                        <i class="fas fa-utensils text-xl"></i>
+                        @if(auth()->user()->getRecipes()->count() > 0)
+                            <span class="absolute -top-1 -right-1 bg-green-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                                {{ auth()->user()->getRecipes()->count() < 10 ? auth()->user()->getRecipes()->count() : '9+' }}
+                            </span>
+                        @endif
+                    </a>
+                    
+                    <!-- Notifications - Bell icon -->
+                    <div class="relative">
+                        <button id="notification-bell" class="text-gray-700 hover:text-yellow-500 transition-colors duration-200 mr-3 relative" title="Notifications">
+                            <i class="fas fa-bell text-xl"></i>
+                            <span class="notification-count absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center hidden"></span>
+                        </button>
+                        
+                        <!-- Notification Dropdown -->
+                        <div id="notification-dropdown" class="absolute right-0 mt-2 w-80 bg-white rounded-md shadow-lg py-1 z-50 hidden">
+                            <div class="px-4 py-2 border-b border-gray-100 flex justify-between items-center">
+                                <h3 class="text-sm font-semibold text-gray-700">Notifications</h3>
+                                <a href="{{ route('notifications') }}" class="text-xs text-blue-600 hover:text-blue-800">View All</a>
+                            </div>
+                            <div id="dropdown-notifications" class="max-h-96 overflow-y-auto">
+                                <!-- Notifications will be loaded here by JavaScript -->
+                                <div class="text-center py-4">
+                                    <p class="text-sm text-gray-500">Loading notifications...</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- User Profile -->
                     <div class="flex items-center space-x-3">
-                        <div class="hidden md:flex flex-col items-end">
-                            <span class="text-sm font-medium text-gray-900">{{ auth()->user()->name }}</span>
-                        </div>
-                        <div class="h-10 w-10 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
-                            @if(auth()->user()->picture)
-                                <img src="{{ auth()->user()->picture }}" alt="User avatar" class="h-full w-full object-cover">
-                            @else
-                                <span class="text-green-600 font-semibold">{{ substr(auth()->user()->name, 0, 1) }}</span>
-                            @endif
-                        </div>
+                        <a href="{{ route('profile.edit') }}" class="flex items-center space-x-3 hover:opacity-80 transition-opacity">
+                            <div class="hidden md:flex flex-col items-end">
+                                <span class="text-sm font-medium text-gray-900">{{ auth()->user()->name }}</span>
+                                <span class="text-sm font-medium text-gray-900">Age - {{ auth()->user()->age }}</span>
+                            </div>
+                            <div class="h-10 w-10 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
+                                @if(auth()->user()->picture)
+                                    <img src="{{ asset(auth()->user()->picture) }}" alt="User avatar" class="h-full w-full object-cover">
+                                @else
+                                    <span class="text-green-600 font-semibold">{{ substr(auth()->user()->name, 0, 1) }}</span>
+                                @endif
+                            </div>
+                        </a>
                         <form method="POST" action="{{ route('logout') }}" class="inline">
                             @csrf
                             <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors duration-200">
@@ -48,8 +86,8 @@
                 @else
                     <!-- Public Navigation -->
                     <div class="flex items-center space-x-4">
-                        <a href="/about" class="text-gray-600 hover:text-gray-900">About Us</a>
-                        <a href="/login" class="text-gray-600 hover:text-gray-900">Sign In</a>
+                        <!-- Removed About Us link from here -->
+                        <a href="/login" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">Sign In</a>
                         <a href="/register" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">Sign Up</a>
                     </div>
                 @endauth
@@ -60,15 +98,33 @@
         @auth
             <div class="md:hidden border-t border-gray-200">
                 <div class="py-2 space-y-1">
-                    <a href="/meal-suggestions" class="block px-4 py-2 text-gray-600 hover:bg-gray-50">Recipe Suggestions</a>
-                    <a href="/daily-meal-1" class="block px-4 py-2 text-gray-600 hover:bg-gray-50">Daily Meal</a>
-                    <a href="/personalized-recommendations" class="block px-4 py-2 text-gray-600 hover:bg-gray-50">Recommendations</a>
-                    <a href="/health-profile" class="block px-4 py-2 text-gray-600 hover:bg-gray-50">Health Profile</a>
+                    <!-- Removed About Us link from here -->
+                    <!-- Add Saved Recipes link to mobile menu -->
+                    <a href="{{ route('favorites') }}" class="flex items-center px-4 py-2 text-gray-600 hover:bg-gray-50">
+                        <i class="fas fa-heart text-lg mr-2"></i>
+                        <span>Saved Recipes</span>
+                    </a>
+                    <!-- Add Get Recipes link to mobile menu -->
+                    <a href="{{ route('get.recipes') }}" class="flex items-center px-4 py-2 text-gray-600 hover:bg-gray-50">
+                        <i class="fas fa-utensils text-lg mr-2"></i>
+                        <span>My Recipe Collection</span>
+                    </a>
+                    <!-- Add Notifications link to mobile menu -->
+                    <div class="flex items-center px-4 py-2 text-gray-600 hover:bg-gray-50">
+                        <button id="mobile-notification-bell" class="flex items-center w-full text-left">
+                            <i class="fas fa-bell text-lg mr-2"></i>
+                            <span>Notifications</span>
+                            <span class="notification-count ml-2 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center hidden"></span>
+                        </button>
+                    </div>
                 </div>
             </div>
         @endauth
     </div>
 </header>
+
+<!-- Spacing to prevent content from being hidden under the fixed header -->
+<div class="h-20"></div>
 
 <!-- Side Navigation (Only for main site, not dashboard) -->
 @guest
@@ -113,6 +169,16 @@
 
 <style>
     /* Ensure content below header is properly spaced */
+    body {
+        padding-top: 4rem; /* Add top padding to the body */
+        margin: 0;
+    }
+    
+    .header-wrapper {
+        width: 100%;
+        position: relative;
+    }
+    
     .header-wrapper + * {
         margin-top: 1rem;
     }
@@ -121,6 +187,38 @@
     .nav-active {
         color: #047857; /* text-green-600 */
         font-weight: 600;
+    }
+    
+    /* Notification dropdown styles */
+    #notification-dropdown {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+    
+    .dropdown-notification-item {
+        transition: background-color 0.2s;
+    }
+    
+    .dropdown-notification-item:last-child {
+        border-bottom: none;
+    }
+    
+    .dropdown-delete-notification {
+        opacity: 0.7;
+        transition: opacity 0.2s, color 0.2s;
+    }
+    
+    .dropdown-delete-notification:hover {
+        opacity: 1;
+    }
+    
+    /* Line clamp for notification messages */
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 </style>
 

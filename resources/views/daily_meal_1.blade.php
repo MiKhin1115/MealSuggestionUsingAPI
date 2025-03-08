@@ -34,116 +34,154 @@
 
 
             <!-- Ingredients Categories -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                <!-- Pantry Essentials -->
-                <div class="bg-white rounded-lg shadow p-6">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4">
-                        <i class="fas fa-box-open mr-2 text-green-500"></i>
-                        Pantry Essentials
-                    </h3>
-                    <div class="space-y-4">
-                        <div class="relative">
-                            <input type="text" 
-                                   class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500"
-                                   placeholder="e.g., Rice, Pasta, Flour, Oil, Salt...">
-                            <div class="suggestions hidden absolute w-full bg-white mt-1 rounded-lg shadow-lg z-10"></div>
+            <form id="ingredients-form" action="{{ route('daily.meal.2') }}" method="get">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                    <!-- Pantry Essentials -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                            <i class="fas fa-box-open mr-2 text-green-500"></i>
+                            Pantry Essentials
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="relative">
+                                <input type="text" 
+                                       class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500"
+                                       placeholder="e.g., Rice, Pasta, Flour, Oil, Salt...">
+                                <div class="suggestions hidden absolute w-full bg-white mt-1 rounded-lg shadow-lg z-10"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vegetables & Greens -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                            <i class="fas fa-carrot mr-2 text-green-500"></i>
+                            Vegetables & Greens
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="relative">
+                                <input type="text" 
+                                       class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500"
+                                       placeholder="e.g., Tomatoes, Spinach, Broccoli...">
+                                <div class="suggestions hidden absolute w-full bg-white mt-1 rounded-lg shadow-lg z-10"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fruits & Seeds -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                            <i class="fas fa-apple-alt mr-2 text-green-500"></i>
+                            Fruits & Seeds
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="relative">
+                                <input type="text" 
+                                       class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500"
+                                       placeholder="e.g., Apples, Chia Seeds, Almonds...">
+                                <div class="suggestions hidden absolute w-full bg-white mt-1 rounded-lg shadow-lg z-10"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Condiments -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                            <i class="fas fa-pepper-hot mr-2 text-green-500"></i>
+                            Condiments
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="relative">
+                                <input type="text" 
+                                       class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500"
+                                       placeholder="e.g., Ketchup, Soy Sauce, Mustard...">
+                                <div class="suggestions hidden absolute w-full bg-white mt-1 rounded-lg shadow-lg z-10"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Meat & Seafood -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                            <i class="fas fa-drumstick-bite mr-2 text-green-500"></i>
+                            Meat & Seafood
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="relative">
+                                <input type="text" 
+                                       class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500"
+                                       placeholder="e.g., Chicken, Fish, Beef...">
+                                <div class="suggestions hidden absolute w-full bg-white mt-1 rounded-lg shadow-lg z-10"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Beverages & Cooking Alcohol -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                            <i class="fas fa-wine-bottle mr-2 text-green-500"></i>
+                            Beverages & Cooking Alcohol
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="relative">
+                                <input type="text" 
+                                       class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500"
+                                       placeholder="e.g., Wine, Beer, Juice...">
+                                <div class="suggestions hidden absolute w-full bg-white mt-1 rounded-lg shadow-lg z-10"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Vegetables & Greens -->
-                <div class="bg-white rounded-lg shadow p-6">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4">
-                        <i class="fas fa-carrot mr-2 text-green-500"></i>
-                        Vegetables & Greens
-                    </h3>
-                    <div class="space-y-4">
-                        <div class="relative">
-                            <input type="text" 
-                                   class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500"
-                                   placeholder="e.g., Tomatoes, Spinach, Broccoli...">
-                            <div class="suggestions hidden absolute w-full bg-white mt-1 rounded-lg shadow-lg z-10"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Fruits & Seeds -->
-                <div class="bg-white rounded-lg shadow p-6">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4">
-                        <i class="fas fa-apple-alt mr-2 text-green-500"></i>
-                        Fruits & Seeds
-                    </h3>
-                    <div class="space-y-4">
-                        <div class="relative">
-                            <input type="text" 
-                                   class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500"
-                                   placeholder="e.g., Apples, Chia Seeds, Almonds...">
-                            <div class="suggestions hidden absolute w-full bg-white mt-1 rounded-lg shadow-lg z-10"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Vegan Ingredients -->
-                <div class="bg-white rounded-lg shadow p-6">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4">
-                        <i class="fas fa-seedling mr-2 text-green-500"></i>
-                        Vegan Ingredients
-                    </h3>
-                    <div class="space-y-4">
-                        <div class="relative">
-                            <input type="text" 
-                                   class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500"
-                                   placeholder="e.g., Tofu, Tempeh, Seitan...">
-                            <div class="suggestions hidden absolute w-full bg-white mt-1 rounded-lg shadow-lg z-10"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Meat & Seafood -->
-                <div class="bg-white rounded-lg shadow p-6">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4">
-                        <i class="fas fa-drumstick-bite mr-2 text-green-500"></i>
-                        Meat & Seafood
-                    </h3>
-                    <div class="space-y-4">
-                        <div class="relative">
-                            <input type="text" 
-                                   class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500"
-                                   placeholder="e.g., Chicken, Fish, Beef...">
-                            <div class="suggestions hidden absolute w-full bg-white mt-1 rounded-lg shadow-lg z-10"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Beverages & Cooking Alcohol -->
-                <div class="bg-white rounded-lg shadow p-6">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4">
-                        <i class="fas fa-wine-bottle mr-2 text-green-500"></i>
-                        Beverages & Cooking Alcohol
-                    </h3>
-                    <div class="space-y-4">
-                        <div class="relative">
-                            <input type="text" 
-                                   class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500"
-                                   placeholder="e.g., Wine, Beer, Juice...">
-                            <div class="suggestions hidden absolute w-full bg-white mt-1 rounded-lg shadow-lg z-10"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Submit Button -->
-            <div class="flex justify-center mt-8">
-                <a href="{{ route('daily.meal.2') }}" >
-                    <button class="bg-green-500 text-white text-lg mb-10 px-8 py-3 rounded-lg hover:bg-green-600 transition-colors duration-200">
+                <!-- Submit Button -->
+                <div class="flex flex-col items-center mt-8">
+                    <div id="validation-message" class="text-red-500 mb-2 hidden">Please enter at least one ingredient.</div>
+                    <button id="submit-button" type="button" class="bg-green-500 text-white text-lg mb-10 px-8 py-3 rounded-lg hover:bg-green-600 transition-colors duration-200">
                         Get Meal Suggestions
                     </button>
-                </a>                
-            </div>
-
+                </div>
+            </form>
         </div>
 
         <script>
+            // Validation and form submission
+            document.getElementById('submit-button').addEventListener('click', function() {
+                const inputs = document.querySelectorAll('input[type="text"]');
+                let hasValue = false;
+                let allIngredients = [];
+                
+                // Check if at least one input has value and collect ingredients
+                inputs.forEach(input => {
+                    const value = input.value.trim();
+                    if (value !== '') {
+                        hasValue = true;
+                        // Split the input value by commas to handle multiple ingredients
+                        const values = value.split(',').map(v => v.trim()).filter(v => v !== '');
+                        allIngredients.push(...values);
+                    }
+                });
+                
+                if (hasValue) {
+                    // For GET requests, we'll add individual ingredient parameters to the form
+                    allIngredients.forEach((ingredient, index) => {
+                        const hiddenInput = document.createElement('input');
+                        hiddenInput.type = 'hidden';
+                        hiddenInput.name = `ingredient[]`;
+                        hiddenInput.value = ingredient;
+                        document.getElementById('ingredients-form').appendChild(hiddenInput);
+                    });
+                    
+                    // Submit the form
+                    document.getElementById('ingredients-form').submit();
+                } else {
+                    // No ingredients entered, show validation message
+                    document.getElementById('validation-message').classList.remove('hidden');
+                    setTimeout(() => {
+                        document.getElementById('validation-message').classList.add('hidden');
+                    }, 3000);
+                }
+            });
+            
             // Add auto-suggestion functionality
             document.querySelectorAll('input[type="text"]').forEach(input => {
                 const suggestionsDiv = input.nextElementSibling;
