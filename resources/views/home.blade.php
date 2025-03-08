@@ -7,6 +7,12 @@
         @vite('resources/css/app.css')
         <!-- Add Font Awesome for the hamburger icon -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+            }
+        </style>
     </head>
     <body class="antialiased">
         <!-- Top Navigation Bar -->
@@ -51,9 +57,9 @@
         </nav>
 
         <!-- Main Content -->
-        <div id="main-content" class="transition-all duration-300 ease-in-out pt-16">
+        <div id="main-content" class="transition-all duration-300 ease-in-out">
             <!-- Home Section -->
-            <section id="home" class="min-h-screen bg-white px-16 py-12">
+            <section id="home" class="min-h-screen bg-white px-16 py-2">
                 <div class="max-w-7xl mx-auto">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                         <div class="rounded-lg overflow-hidden shadow-xl">

@@ -3,10 +3,12 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Complete Your Profile - Food App</title>
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <script src="{{ asset('js/form-validation.js') }}"></script>
     </head>
     <body class="font-sans antialiased bg-gray-50">
         <!-- Navigation Bar -->
@@ -42,7 +44,7 @@
             <div class="bg-white rounded-lg shadow-lg p-8">
                 <h2 class="text-2xl font-bold text-gray-800 mb-6">Tell us about yourself</h2>
                 
-                <form action="/register-questions-2" method="GET" class="space-y-6">
+                <form action="{{ route('register.questions.store') }}" method="POST" class="space-y-6">
                     @csrf
                     
                     <!-- Name -->
@@ -50,6 +52,17 @@
                         <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
                         <input type="text" id="name" name="name" required
                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
+                    </div>
+
+                    <!-- Gender -->
+                    <div>
+                        <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
+                        <select id="gender" name="gender" required
+                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
+                            <option value="">Select gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
                     </div>
 
                     <!-- Age -->
@@ -80,18 +93,17 @@
                         <select id="diet_type" name="diet_type" required
                                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
                             <option value="">Select a diet type</option>
-                            <option value="omnivore">အသားစားကြူးသူများ</option>
-                            <option value="vegetarian">သက်သက်လွတ်သမားများ</option>
-                            <option value="vegan">အလွန်သက်သက်လွတ်သမားများ</option>
+                            <option value="omnivore">omnivore</option>
+                            <option value="vegetarian">vegetarian</option>
+                            <option value="vegan">vegan</option>
                         </select>
                     </div>
 
                     <!-- Navigation Buttons -->
                     <div class="flex justify-end space-x-4 pt-6">
                         <button type="submit"
-                                
                                 class="px-6 py-3 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                            <a href="/register-questions-2">Next Step</a>
+                            Next Step
                         </button>
                     </div>
                 </form>

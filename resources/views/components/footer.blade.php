@@ -41,7 +41,7 @@
                         <a href="#" class="text-gray-600 hover:text-green-500 transition-colors duration-200">Safety Tips</a>
                     </li>
                     <li>
-                        <a href="#" class="text-gray-600 hover:text-green-500 transition-colors duration-200">Contact Us</a>
+                        <a href="/about" class="text-gray-600 hover:text-green-500 transition-colors duration-200">Contact Us</a>
                     </li>
                 </ul>
             </div>

@@ -7,8 +7,11 @@
         @vite('resources/css/app.css')
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        @auth
+        <meta name="user-id" content="{{ Auth::id() }}">
+        @endauth
     </head>
-    <body class="flex flex-col min-h-screen bg-gray-50">
+    <body class="flex flex-col min-h-screen bg-gray-50" @auth data-user-id="{{ Auth::id() }}" @endauth>
         <!-- Your existing navigation bar -->
         <nav>
             <!-- Navigation content -->

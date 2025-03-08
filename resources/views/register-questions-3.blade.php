@@ -3,10 +3,12 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Health Details - Food App</title>
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <script src="{{ asset('js/form-validation.js') }}"></script>
     </head>
     <body class="font-sans antialiased bg-gray-50">
         <!-- Navigation Bar -->
@@ -42,20 +44,58 @@
             <div class="bg-white rounded-lg shadow-lg p-8">
                 <h2 class="text-2xl font-bold text-gray-800 mb-6">Final Health & Preference Details</h2>
                 
-                <form action="/registration-success" method="GET" class="space-y-6">
-                    @csrf
-
-                    <!-- Allergies Section -->
-                    <div class="space-y-4">
-                        <label class="block text-sm font-medium text-gray-700">Allergies</label>
-                        <div class="flex items-center mb-4">
-                            <input type="checkbox" id="no_allergies" name="no_allergies" class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded">
-                            <label for="no_allergies" class="ml-2 block text-sm text-gray-700">I have no allergies</label>
+                @if ($errors->any())
+                <div class="mb-4 p-4 bg-red-50 border border-red-200 rounded-md">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                            </svg>
                         </div>
-                        <div id="allergies_input" class="transition-opacity duration-300">
-                            <textarea id="allergies" name="allergies" rows="2"
-                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
-                                    placeholder="List your allergies, separated by commas"></textarea>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-red-800">There were errors with your submission</h3>
+                            <div class="mt-2 text-sm text-red-700">
+                                <ul class="list-disc pl-5 space-y-1">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endif
+
+                @if (session('error'))
+                <div class="mb-4 p-4 bg-red-50 border border-red-200 rounded-md">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <div class="text-sm text-red-700">
+                                {{ session('error') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endif
+                
+                <form method="POST" action="{{ route('register.questions3.store') }}" class="space-y-6">
+                    @csrf
+                    <input type="hidden" name="session_id" value="{{ session()->getId() }}">
+
+                    <!-- No Allergies -->
+                    <div class="flex items-start">
+                        <div class="flex items-center h-5">
+                            <input id="no_allergies" name="no_allergies" type="checkbox" value="1"
+                                   class="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500">
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="no_allergies" class="font-medium text-gray-700">I don't have any food allergies</label>
+                            <p class="text-gray-500">Check this if you don't have any food allergies or dietary restrictions</p>
                         </div>
                     </div>
 
@@ -75,9 +115,7 @@
                             <option value="">Select your goal</option>
                             <option value="weight_loss">Weight Loss</option>
                             <option value="weight_gain">Weight Gain</option>
-                            <option value="maintenance">Maintain Current Weight</option>
-                            <option value="muscle_gain">Build Muscle</option>
-                            <option value="general_health">Improve General Health</option>
+                            <option value="maintain_weight">Maintain Current Weight</option>
                         </select>
                     </div>
 
@@ -120,8 +158,7 @@
                                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
                             <option value="budget">Budget-friendly (Under 10000 kyats/day)</option>
                             <option value="moderate">Moderate (10000-20000 kyats/day)</option>
-                            <option value="premium">Premium (20000-30000 kyats/day)</option>
-                            <option value="luxury">Luxury (Over 30000 kyats/day)</option>
+                            <option value="expensive">Expensive (Over 20000 kyats/day)</option>
                         </select>
                     </div>
 
@@ -139,22 +176,5 @@
                 </form>
             </div>
         </div>
-
-        <!-- Script for handling allergies checkbox -->
-        <script>
-            document.getElementById('no_allergies').addEventListener('change', function() {
-                const allergiesInput = document.getElementById('allergies_input');
-                const allergiesTextarea = document.getElementById('allergies');
-                
-                if (this.checked) {
-                    allergiesInput.style.opacity = '0.5';
-                    allergiesTextarea.disabled = true;
-                    allergiesTextarea.value = '';
-                } else {
-                    allergiesInput.style.opacity = '1';
-                    allergiesTextarea.disabled = false;
-                }
-            });
-        </script>
     </body>
 </html> 
