@@ -623,9 +623,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/recipes/create', [RecipeAdminController::class, 'create'])->name('admin.recipes.create');
     Route::post('/admin/recipes', [RecipeAdminController::class, 'store'])->name('admin.recipes.store');
 });
-Route::post('/register-questions', function () {
-    return view('register-questions');
-})->name('register.questions');
 
 Route::post('/save-recipe', [SavedRecipeController::class, 'store'])
     //->middleware('auth')

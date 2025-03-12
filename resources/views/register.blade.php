@@ -42,7 +42,7 @@
             <div class="relative w-full max-w-md p-8 bg-white rounded-lg shadow-xl mx-4">
                 <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Create Account</h2>
 
-                <form method="POST" action="{{ route('register-questions') }}" class="space-y-4">
+                <form method="POST" action="{{ route('register.store') }}" class="space-y-4">
                     @csrf
                     <div>
                         <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>

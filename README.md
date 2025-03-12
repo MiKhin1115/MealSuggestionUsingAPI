@@ -13,3 +13,19 @@ If not, install nessary framework and libraries.
  - Calorie API filtration for health_goal.
  - Recipe filteration for allergies and diseases.
 
+ ### This is the command you might need to run.
+
+ - cd path/to/your-laravel-project
+ - composer install
+ - composer update
+ - npm install
+ - composer update
+ - cp .env.example .env
+ - php artisan key:generate
+ - php artisan migrate
+ - php artisan db:seed
+ - npm run dev  # or npm run build for production
+ - php artisan serve
+
+
+
